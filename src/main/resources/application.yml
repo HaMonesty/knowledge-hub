@@ -4,3 +4,12 @@ spring:
     username: root
     password: Root123456!
     driver-class-name: com.mysql.cj.jdbc.Driver
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    baseline-on-migrate: false
+    baseline-version: "0"
+jwt:
+  secret: ${JWT_SECRET}
+  issuer: knowledge-hub
+  expiration-seconds: 1800
