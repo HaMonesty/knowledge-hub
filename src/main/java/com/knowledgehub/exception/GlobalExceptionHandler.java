@@ -33,6 +33,11 @@ public class GlobalExceptionHandler {
                     .status(HttpStatus.CONFLICT)
                     .body(new ErrorResponse(ex.getCode(), ex.getMessage()));
         }
+        if ("CATEGORY_NOT_FOUND".equals(ex.getCode())) {
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body(new ErrorResponse(ex.getCode(), ex.getMessage()));
+        }
 
         if ("INVALID_CATEGORY_NAME".equals(ex.getCode())) {
             return ResponseEntity
