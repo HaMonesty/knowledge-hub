@@ -28,6 +28,17 @@ public class GlobalExceptionHandler {
                     .status(HttpStatus.UNAUTHORIZED)
                     .body(new ErrorResponse(ex.getCode(), ex.getMessage()));
         }
+        if ("CATEGORY_ALREADY_EXISTS".equals(ex.getCode())) {
+            return ResponseEntity
+                    .status(HttpStatus.CONFLICT)
+                    .body(new ErrorResponse(ex.getCode(), ex.getMessage()));
+        }
+
+        if ("INVALID_CATEGORY_NAME".equals(ex.getCode())) {
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body(new ErrorResponse(ex.getCode(), ex.getMessage()));
+        }
         // 未配置响应规则的业务异常，不能随意当成客户端错误
         log.error("未配置业务异常映射，code={}", ex.getCode(), ex);
 

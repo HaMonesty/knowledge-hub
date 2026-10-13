@@ -57,6 +57,9 @@ public class SecurityConfig {
                         )
                         .permitAll()
 
+                        .requestMatchers(HttpMethod.POST, "/api/v1/categories")
+                        .hasRole("ADMIN")
+
                         .anyRequest()
                         .authenticated()
                 )
