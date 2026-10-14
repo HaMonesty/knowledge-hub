@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.knowledgehub.mapper.KnowledgeMapper">
+
+    <!-- 查询作者的知识列表，可选状态筛选；分页由PageHelper处理 -->
+    <select id="selectMine"
+            resultType="com.knowledgehub.vo.KnowledgeListVO">
+        SELECT id, title, summary,
+        category_id AS categoryId,
+        status,
+        created_at AS createdAt,
+        updated_at AS updatedAt
+        FROM knowledge
+        WHERE author_id = #{authorId}
+
+        <if test="status != null">
+            AND status = #{status}
+        </if>
+
+        ORDER BY created_at DESC, id DESC
+    </select>
+
+</mapper>
