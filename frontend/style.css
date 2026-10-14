@@ -1,0 +1,328 @@
+* {
+    box-sizing: border-box;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+body {
+    margin: 0;
+    background: #f5f7fb;
+    color: #23324a;
+    font: 15px/1.6 system-ui, -apple-system, "Microsoft YaHei", sans-serif;
+}
+
+aside {
+    position: fixed;
+    width: 240px;
+    height: 100vh;
+    background: #142a40;
+    color: white;
+    padding: 30px 22px;
+}
+
+aside h2 {
+    font-size: 22px;
+}
+
+aside p,
+aside small {
+    color: #a5bacb;
+}
+
+aside small {
+    position: absolute;
+    bottom: 28px;
+}
+
+nav {
+    display: grid;
+    gap: 12px;
+    margin-top: 45px;
+}
+
+button {
+    cursor: pointer;
+    font: inherit;
+    border: 1px solid #dce3ec;
+    border-radius: 9px;
+    background: white;
+    color: #34445a;
+    padding: 8px 16px;
+}
+
+button:hover {
+    background: #eef3fa;
+}
+
+button:disabled {
+    cursor: not-allowed;
+    opacity: 0.45;
+}
+
+nav button {
+    text-align: left;
+    color: #c0cfdd;
+    background: transparent;
+    border: 0;
+    padding: 13px;
+}
+
+nav button.active {
+    background: #29465f;
+    color: white;
+}
+
+main {
+    margin-left: 240px;
+    padding: 30px 42px;
+    max-width: 1500px;
+}
+
+header,
+.toolbar,
+footer,
+.actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+header {
+    flex-wrap: wrap;
+}
+
+header > div:first-child {
+    margin-right: auto;
+}
+
+h1 {
+    margin: 4px 0 20px;
+    font-size: 29px;
+}
+
+.eyebrow {
+    letter-spacing: 2px;
+    font-size: 11px;
+    color: #6d849b;
+}
+
+.intro {
+    margin: 22px 0 30px;
+    padding: 25px 30px;
+    border-radius: 16px;
+    background: #e5eef9;
+    border: 1px solid #d7e4f6;
+}
+
+.intro h2 {
+    margin: 0;
+    font-size: 23px;
+}
+
+.intro p {
+    color: #657d96;
+    margin-bottom: 0;
+}
+
+.toolbar {
+    justify-content: space-between;
+    margin: 20px 0;
+    flex-wrap: wrap;
+}
+
+.toolbar > div {
+    display: flex;
+    gap: 8px;
+}
+
+.primary {
+    background: #2d67c8;
+    color: white;
+    border-color: #2d67c8;
+}
+
+.primary:hover {
+    background: #2455a6;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 18px;
+}
+
+.card {
+    padding: 22px;
+    background: white;
+    border: 1px solid #e0e7f0;
+    border-radius: 13px;
+}
+
+.card h3 {
+    margin: 12px 0;
+    overflow-wrap: anywhere;
+}
+
+.card p {
+    color: #708096;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+.badge {
+    font-size: 12px;
+    padding: 4px 9px;
+    background: #e8f0fc;
+    color: #3668b5;
+    border-radius: 6px;
+}
+
+.meta {
+    font-size: 12px;
+    color: #8795a7;
+}
+
+.card .actions {
+    flex-wrap: wrap;
+    margin-top: 18px;
+}
+
+.empty {
+    padding: 60px 20px;
+    text-align: center;
+    background: white;
+    border-radius: 12px;
+    grid-column: 1 / -1;
+    color: #7b8c9f;
+}
+
+footer {
+    justify-content: flex-end;
+    margin-top: 25px;
+}
+
+footer > span:first-child {
+    margin-right: auto;
+}
+
+dialog {
+    border: 0;
+    border-radius: 16px;
+    width: min(720px, 94vw);
+    max-height: 90vh;
+    padding: 28px;
+    color: #23324a;
+}
+
+dialog::backdrop {
+    background: #142a4080;
+}
+
+label {
+    display: block;
+    margin: 16px 0;
+}
+
+input,
+textarea,
+select {
+    font: inherit;
+    border: 1px solid #ccd6e4;
+    border-radius: 8px;
+    background: white;
+    color: #23324a;
+    padding: 9px;
+}
+
+label input,
+label textarea,
+label select {
+    display: block;
+    width: 100%;
+    margin-top: 6px;
+}
+
+textarea {
+    resize: vertical;
+}
+
+.actions {
+    justify-content: flex-end;
+}
+
+details {
+    margin-top: 25px;
+    color: #73849a;
+}
+
+pre {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    background: #eaf0f7;
+    padding: 16px;
+    border-radius: 10px;
+}
+
+#notice {
+    min-height: 24px;
+    color: #245ca9;
+}
+
+#notice.error {
+    color: #b23b36;
+}
+
+.category-row {
+    display: flex;
+    gap: 10px;
+    padding: 16px;
+    background: white;
+    border-bottom: 1px solid #e6edf5;
+}
+
+.category-row span {
+    margin-right: auto;
+}
+
+@media (max-width: 800px) {
+    aside {
+        position: static;
+        width: auto;
+        height: auto;
+        padding: 15px;
+    }
+
+    aside p,
+    aside small {
+        display: none;
+    }
+
+    nav {
+        display: flex;
+        margin: 10px 0;
+        gap: 2px;
+    }
+
+    main {
+        margin: 0;
+        padding: 20px;
+    }
+
+    .toolbar > div {
+        flex-wrap: wrap;
+    }
+
+    .intro {
+        padding: 20px;
+    }
+
+    header {
+        gap: 8px;
+    }
+
+    footer {
+        flex-wrap: wrap;
+    }
+}

@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>KnowledgeHub · 知识工作台</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<aside>
+    <h2>◈ KnowledgeHub</h2>
+    <p>把知识变成团队的力量</p>
+    <nav>
+        <button data-view="knowledge" class="active">▤ 我的知识</button>
+        <button data-view="categories">▦ 分类管理</button>
+        <button data-view="roadmap">✦ 更多功能</button>
+    </nav>
+    <small>Java · AI 知识管理平台</small>
+</aside>
+
+<main>
+    <header>
+        <div>
+            <span class="eyebrow">KNOWLEDGE WORKSPACE</span>
+            <h1 id="heading">我的知识</h1>
+        </div>
+        <div id="account">未登录</div>
+        <button id="auth-open">登录 / 注册</button>
+        <button id="logout" hidden>退出登录</button>
+    </header>
+
+    <section class="intro">
+        <h2>记录想法，沉淀每一次成长。</h2>
+        <p>从一篇草稿开始，建立属于你的技术知识库。</p>
+    </section>
+
+    <section id="knowledge">
+        <div class="toolbar">
+            <div>
+                <select id="status" aria-label="知识状态">
+                    <option value="">全部状态</option>
+                    <option value="DRAFT">草稿</option>
+                    <option value="PUBLISHED">已发布</option>
+                </select>
+                <select id="size" aria-label="每页条数">
+                    <option value="10">每页 10 条</option>
+                    <option value="2">每页 2 条（联调）</option>
+                    <option value="20">每页 20 条</option>
+                </select>
+                <button id="refresh">刷新</button>
+            </div>
+            <button class="primary" id="new">＋ 创建草稿</button>
+        </div>
+
+        <div id="cards" class="cards">
+            <p class="empty">登录后查看自己的知识。</p>
+        </div>
+
+        <footer>
+            <span id="total">共 0 条</span>
+            <button id="prev">上一页</button>
+            <span id="page">第 1 页</span>
+            <button id="next">下一页</button>
+        </footer>
+    </section>
+
+    <section id="categories" hidden>
+        <div class="toolbar">
+            <p>分类对登录用户可见，维护仅限管理员。</p>
+            <button id="category-new" class="primary">＋ 新增分类</button>
+        </div>
+        <div id="category-list"></div>
+    </section>
+
+    <section id="roadmap" hidden>
+        <h2>接下来的知识体验</h2>
+        <p>以下功能尚未接入，不会发出未约定的接口请求。</p>
+        <div class="cards" id="future"></div>
+    </section>
+
+    <p id="notice" role="status" aria-live="polite"></p>
+
+    <details>
+        <summary>最近一次接口响应（联调）</summary>
+        <pre id="response">尚未请求</pre>
+    </details>
+</main>
+
+<dialog id="auth">
+    <form id="auth-form">
+        <h2 id="auth-title">登录 KnowledgeHub</h2>
+
+        <label>
+            用户名
+            <input name="username" required minlength="4" maxlength="32"
+                   pattern="[A-Za-z0-9_]+" autocomplete="username">
+        </label>
+
+        <label>
+            密码
+            <input name="password" type="password" required
+                   minlength="8" maxlength="64" autocomplete="current-password">
+        </label>
+
+        <label id="nickname-field" hidden>
+            昵称
+            <input name="nickname" maxlength="32">
+        </label>
+
+        <p>注册密码需要同时包含字母和数字。</p>
+
+        <div class="actions">
+            <button type="button" data-close="auth">取消</button>
+            <button type="button" id="auth-switch">切换注册</button>
+            <button class="primary" type="submit">确认</button>
+        </div>
+    </form>
+</dialog>
+
+<dialog id="editor">
+    <form id="edit-form">
+        <h2 id="editor-title">创建草稿</h2>
+
+        <label>
+            标题
+            <input name="title" required maxlength="200">
+        </label>
+
+        <label>
+            摘要
+            <textarea name="summary" maxlength="500" rows="2"></textarea>
+        </label>
+
+        <label>
+            分类
+            <select name="categoryId">
+                <option value="">不选择分类</option>
+            </select>
+        </label>
+
+        <label>
+            Markdown 正文
+            <textarea name="content" maxlength="100000" rows="12"
+                      placeholder="# 写下你的知识"></textarea>
+        </label>
+
+        <div class="actions">
+            <button type="button" disabled title="发布接口尚未实现">
+                发布 · 待开发
+            </button>
+            <button type="button" data-close="editor">取消</button>
+            <button id="save" class="primary" type="submit">保存草稿</button>
+        </div>
+    </form>
+</dialog>
+
+<dialog id="category-dialog">
+    <form id="category-form">
+        <h2>维护分类</h2>
+
+        <label>
+            分类名称
+            <input name="name" required maxlength="32">
+        </label>
+
+        <div class="actions">
+            <button type="button" data-close="category-dialog">取消</button>
+            <button type="submit" class="primary">保存</button>
+        </div>
+    </form>
+</dialog>
+
+<script src="app.js"></script>
+</body>
+</html>
