@@ -38,6 +38,12 @@ public class GlobalExceptionHandler {
                     .status(HttpStatus.NOT_FOUND)
                     .body(new ErrorResponse(ex.getCode(), ex.getMessage()));
         }
+        if ("INVALID_PAGE_PARAM".equals(ex.getCode())
+                || "INVALID_KNOWLEDGE_STATUS".equals(ex.getCode())) {
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body(new ErrorResponse(ex.getCode(), ex.getMessage()));
+        }
 
         if ("INVALID_CATEGORY_NAME".equals(ex.getCode())) {
             return ResponseEntity

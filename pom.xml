@@ -51,6 +51,12 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
+        <!-- PageHelper分页插件，复用现有MyBatis-Plus配置 -->
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper</artifactId>
+            <version>6.1.0</version>
+        </dependency>
         <!-- Web 接口 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

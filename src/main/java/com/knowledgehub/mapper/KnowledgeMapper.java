@@ -2,6 +2,8 @@ package com.knowledgehub.mapper;
 
 import com.knowledgehub.entity.Knowledge;
 import org.apache.ibatis.annotations.*;
+import com.knowledgehub.vo.KnowledgeListVO;
+import java.util.List;
 
 @Mapper
 public interface KnowledgeMapper {
@@ -104,4 +106,17 @@ public interface KnowledgeMapper {
             @Param("id") Long id,
             @Param("authorId") Long authorId
     );
+
+    /**
+     * 查询当前用户的知识，可按状态筛选。
+     *
+     * @param authorId 当前登录用户ID
+     * @param status 状态，null表示不筛选
+     * @return 知识列表
+     */
+    List<KnowledgeListVO> selectMine(
+            @Param("authorId") Long authorId,
+            @Param("status") String status
+    );
+
 }

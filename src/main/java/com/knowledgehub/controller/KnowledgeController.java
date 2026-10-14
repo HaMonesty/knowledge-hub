@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import com.knowledgehub.common.PageResult;
+import com.knowledgehub.vo.KnowledgeListVO;
 
 @RestController
 @RequestMapping("/api/v1/knowledge")
@@ -82,5 +84,26 @@ public class KnowledgeController {
             @AuthenticationPrincipal UserVO currentUser) {
 
         knowledgeService.deleteDraft(id, currentUser.getId());
+    }
+
+    /**
+     * 分页查询当前登录用户的知识。
+     *
+     * @param page 页码，默认1
+     * @param size 每页条数，默认10
+     * @param status 可选状态：DRAFT或PUBLISHED
+     * @param currentUser 当前登录用户
+     * @return 知识分页结果
+     */
+    @GetMapping("/mine")
+    public PageResult<KnowledgeListVO> listMine(
+            @RequestParam(name = "page", defaultValue = "1") int page,
+            @RequestParam(name = "size", defaultValue = "10") int size,
+            @RequestParam(name = "status", required = false) String status,
+            @AuthenticationPrincipal UserVO currentUser) {
+
+        return knowledgeService.listMine(
+                currentUser.getId(), page, size, status
+        );
     }
 }

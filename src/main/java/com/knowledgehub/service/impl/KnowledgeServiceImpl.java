@@ -10,6 +10,11 @@ import com.knowledgehub.vo.KnowledgeVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.knowledgehub.common.PageResult;
+import com.knowledgehub.vo.KnowledgeListVO;
+import java.util.List;
 
 import javax.swing.*;
 import java.util.List;
@@ -183,6 +188,55 @@ public class KnowledgeServiceImpl implements KnowledgeService {
 
         if (deletedRows == 0) {
             throw knowledgeNotFound();
+        }
+    }
+
+    /**
+     * 校验分页条件，通过PageHelper查询当前用户的知识。
+     *
+     * @param authorId 当前登录用户ID
+     * @param page 页码
+     * @param size 每页条数
+     * @param status 可选知识状态
+     * @return 知识分页结果
+     */
+
+    @Override
+    public PageResult<KnowledgeListVO> listMine(
+            Long authorId, int page, int size, String status) {
+
+        if (page < 1 || size < 1 || size > 50) {
+            throw new BusinessException(
+                    "INVALID_PAGE_PARAM",
+                    "页码必须大于0，每页条数必须为1～50"
+            );
+        }
+        if (status != null
+                && !"DRAFT".equals(status)
+                && !"PUBLISHED".equals(status)) {
+            throw new BusinessException(
+                    "INVALID_KNOWLEDGE_STATUS",
+                    "知识状态只能为DRAFT或PUBLISHED"
+            );
+        }
+        try{
+            //下一条查询就是需要分页的目标查询
+            PageHelper.startPage(page,size);
+            List<KnowledgeListVO> records = knowledgeMapper.selectMine(authorId, status);
+
+            //从原查询列表提取分页信息，保留真实总条数
+            PageInfo<KnowledgeListVO> pageInfo =
+                    new PageInfo<>(records);
+
+            return new PageResult<>(
+                    records,
+                    pageInfo.getTotal(),
+                    page,
+                    size
+            );
+
+        }finally {
+            PageHelper.clearPage();
         }
     }
 }
